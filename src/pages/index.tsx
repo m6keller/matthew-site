@@ -34,6 +34,20 @@ function ExperienceTile({ title, description, company } : {title: string, descri
 
 }
 
+function ProjectTile({ title, date, description }: { title: string, date: string, description: string }) {
+  return (
+    <div className="max-w-sm rounded overflow-hidden shadow-lg m-4 bg-white">
+      <div className="px-6 py-4">
+        <div className="font-bold text-xl mb-2">{title}</div>
+        <p className="text-gray-700 text-base">{description}</p>
+      </div>
+      <div className="px-6 pt-4 pb-2">
+        <span className="text-gray-600 text-sm">{date}</span>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
 
   return (
@@ -46,14 +60,14 @@ export default function Home() {
       <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-d9f4c7 to-f8fa90">
         <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
           <h1 className="text-6xl font-bold text-ac9969 mb-8">
-            Welcome!
+            Matthew
           </h1>
           <p className="text-2xl font-medium text-gray-800 mb-8">
-            to my personal website
+            Software Developer, Student, Frog-Lover
           </p>
-          <Link to="experience" smooth={true} duration={2000}>
-            <button className="bg-lion text-white font-bold py-4 px-6 rounded-lg shadow-lg bg-9DCDC0 hover:bg-#9DCDC0 transition-colors duration-300">
-              learn more
+          <Link to="experience" smooth={true} duration={1000}>
+            <button className="bg-tea-green font-bold py-4 px-6 rounded-lg shadow-sm hover:shadow-md">
+              <HiOutlineArrowDown />
             </button>
           </Link>
         </main>
@@ -64,17 +78,29 @@ export default function Home() {
             <div className="absolute top-0 left-1/2 w-0.5 h-full bg-gray-400"></div>
             <div className="flex flex-col">
               <div className="flex flex-col md:flex-row items-center justify-center h-full">
-                {experienceList.map((experience) =><ExperienceTile {...experience} />)}
+                {experienceList.map((experience) => <ExperienceTile {...experience} />)}
               </div>
-              <Link to="projects" className="flex mx-auto w-10 first-letter:mx-auto z-10 rounded-md bg-white items-center justify-center">
-                <HiOutlineArrowDown size={20}/>
+              {/* <Link to="projects" className="flex mx-auto w-10 h-10 first-letter:mx-auto z-10 rounded-md bg-white items-center justify-center" smooth={true} duration={1000}>
+                <HiOutlineArrowDown size={30}/>
+              </Link> */}
+              <Link to="projects" className="mx-auto z-10" smooth={true} duration={1000}>
+                <button className="bg-tea-green font-bold py-4 px-6 rounded-lg shadow-sm hover:shadow-md">
+                  <HiOutlineArrowDown />
+                </button>
               </Link>
             </div>
           </div>
         </div>
       </section>
-      {/* <section className="flex flex-wrap justify-center items-center h-screen" id="projects">
-        <table className="table-fixed w-full">
+      <section className="flex flex-wrap justify-center items-center h-screen" id="projects">
+        <div className="flex flex-col md:flex-row items-center justify-center h-full">
+          {[0,1,2,3,4,5].map((num) =>  <ProjectTile 
+            title="title"
+            description="hello"
+            date="date"
+          />)}
+        </div>
+        {/* <table className="table-fixed w-full">
         <body className="bg-gray-100 min-h-screen">
             <tr>
               <td className="w-1/3 p-4 bg-yellow-500"></td>
@@ -87,8 +113,8 @@ export default function Home() {
               <td className="w-1/3 p-4 bg-indigo-500"></td>
             </tr>
           </body>
-        </table>
-      </section> */}
+        </table> */}
+      </section>
 
     </>
   );
