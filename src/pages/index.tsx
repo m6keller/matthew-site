@@ -48,16 +48,72 @@ function ProjectTile({ title, date, description }: { title: string, date: string
   );
 }
 
+function LandingSection() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-d9f4c7 to-f8fa90">
+    <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
+      <h1 className="text-6xl font-bold text-ac9969 mb-8">
+        Matthew
+      </h1>
+      <p className="text-2xl font-medium text-gray-800 mb-8">
+        Software Developer, Student, Frog-Lover
+      </p>
+      <Link to="experience" smooth={true} duration={1000}>
+        <button className="bg-tea-green font-bold py-4 px-6 rounded-lg shadow-sm hover:shadow-md">
+          <HiOutlineArrowDown />
+        </button>
+      </Link>
+    </main>
+  </div>
+  )
+}
+
+function ExperienceSection () {
+  return (
+    <section className="h-screen" id="experience">
+        <div className="container mx-auto h-full">
+          <div className="relative h-full">
+            <div className="absolute top-0 left-1/2 w-0.5 h-full bg-gray-400"></div>
+            <div className="flex flex-col">
+              <div className="flex flex-col md:flex-row items-center justify-center h-full">
+                {experienceList.map((experience) => <ExperienceTile {...experience} />)}
+              </div>
+              <Link to="projects" className="mx-auto z-10" smooth={true} duration={1000}>
+                <button className="bg-tea-green font-bold py-4 px-6 rounded-lg shadow-sm hover:shadow-md">
+                  <HiOutlineArrowDown />
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+  )
+}
+
+function ProjectsSection() {
+  return (
+      <section className="flex flex-wrap justify-center items-center h-screen" id="projects">
+        <div className="flex flex-col md:flex-row items-center justify-center h-full">
+          {[0,1,2,3,4,5].map((num) =>  <ProjectTile 
+            title="title"
+            description="hello"
+            date="date"
+          />)}
+        </div>
+      </section>
+  )
+}
+
 export default function Home() {
 
   return (
     <>
       <Head>
-        <title>Your Page Title</title>
-        <meta name="description" content="Your Page Description" />
+        <title>Matthew's Personal Site</title>
+        <meta name="description" content="asldkjfklsajdfkl" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-d9f4c7 to-f8fa90">
+      {/* <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-d9f4c7 to-f8fa90">
         <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
           <h1 className="text-6xl font-bold text-ac9969 mb-8">
             Matthew
@@ -71,51 +127,10 @@ export default function Home() {
             </button>
           </Link>
         </main>
-      </div>
-      <section className="h-screen bg-gray-100" id="experience">
-        <div className="container mx-auto h-full">
-          <div className="relative h-full">
-            <div className="absolute top-0 left-1/2 w-0.5 h-full bg-gray-400"></div>
-            <div className="flex flex-col">
-              <div className="flex flex-col md:flex-row items-center justify-center h-full">
-                {experienceList.map((experience) => <ExperienceTile {...experience} />)}
-              </div>
-              {/* <Link to="projects" className="flex mx-auto w-10 h-10 first-letter:mx-auto z-10 rounded-md bg-white items-center justify-center" smooth={true} duration={1000}>
-                <HiOutlineArrowDown size={30}/>
-              </Link> */}
-              <Link to="projects" className="mx-auto z-10" smooth={true} duration={1000}>
-                <button className="bg-tea-green font-bold py-4 px-6 rounded-lg shadow-sm hover:shadow-md">
-                  <HiOutlineArrowDown />
-                </button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section className="flex flex-wrap justify-center items-center h-screen" id="projects">
-        <div className="flex flex-col md:flex-row items-center justify-center h-full">
-          {[0,1,2,3,4,5].map((num) =>  <ProjectTile 
-            title="title"
-            description="hello"
-            date="date"
-          />)}
-        </div>
-        {/* <table className="table-fixed w-full">
-        <body className="bg-gray-100 min-h-screen">
-            <tr>
-              <td className="w-1/3 p-4 bg-yellow-500"></td>
-              <td className="w-1/3 p-4 bg-green-500"></td>
-              <td className="w-1/3 p-4 bg-purple-500"></td>
-            </tr>
-            <tr>
-              <td className="w-1/3 p-4 bg-red-500"></td>
-              <td className="w-1/3 p-4 bg-blue-500"></td>
-              <td className="w-1/3 p-4 bg-indigo-500"></td>
-            </tr>
-          </body>
-        </table> */}
-      </section>
-
+      </div> */}
+      <LandingSection />
+      <ProjectsSection />
+      <ExperienceSection />
     </>
   );
 }
