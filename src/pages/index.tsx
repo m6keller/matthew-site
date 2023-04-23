@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import { Link } from 'react-scroll';
 import { HiOutlineArrowDown } from 'react-icons/hi'
+import ReactModal from 'react-modal';
+import { useState } from 'react';
 
 const experienceList = [
   {
@@ -20,6 +22,39 @@ const experienceList = [
   }
 ]
 
+const projectsList = [
+  {
+    title: "Project 1",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vehicula orci eget velit condimentum fermentum.",
+    tags: ["React", "Next.js", "Tailwind"],
+  },
+  {
+    title: "Project 2",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vehicula orci eget velit condimentum fermentum.",
+    tags: ["React", "Next.js", "Tailwind"],
+  },
+  {
+    title: "Project 3",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vehicula orci eget velit condimentum fermentum.",
+    tags: ["React", "Next.js", "Tailwind"],
+  },
+  {
+    title: "Project 4",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vehicula orci eget velit condimentum fermentum.",
+    tags: ["React", "Next.js", "Tailwind"],
+  },
+  {
+    title: "Project 5",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vehicula orci eget velit condimentum fermentum.",
+    tags: ["React", "Next.js", "Tailwind"],
+  },
+  {
+    title: "Project 6",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vehicula orci eget velit condimentum fermentum.",
+    tags: ["React", "Next.js", "Tailwind"],
+  },
+]
+
 function ExperienceTile({ title, description, company } : {title: string, description: string, company: string}) {
 
   return (
@@ -34,17 +69,34 @@ function ExperienceTile({ title, description, company } : {title: string, descri
 
 }
 
-function ProjectTile({ title, date, description }: { title: string, date: string, description: string }) {
+function ProjectPopUp({ open, setOpen}: {open: boolean, setOpen: Function}) {
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg m-4 bg-white">
+    <ReactModal isOpen={open} className="">
+    {/* <ReactModal isOpen={open} className="rounded"> */}
+      <button className="close" onClick={() => setOpen(false)}>&times;</button>
+      <div className="flex flex-col">
+        <h1>Project 1</h1>
+        <p>blah blah blah</p>
+      </div>
+    </ReactModal>
+  )
+}
+
+
+function ProjectTile({ title, tags, description }: { title: string, tags: string[], description: string }) {
+  const [open, setOpen] = useState(true);
+
+  return (
+    <button className="max-w-sm rounded overflow-hidden shadow-lg m-4 bg-white text-left" onClick={() => setOpen(true)}>
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">{title}</div>
         <p className="text-gray-700 text-base">{description}</p>
       </div>
       <div className="px-6 pt-4 pb-2">
-        <span className="text-gray-600 text-sm">{date}</span>
+        <span className="text-gray-600 text-sm">{tags.join(", ")}</span>
       </div>
-    </div>
+      <ProjectPopUp open={open} setOpen={setOpen}/>
+    </button>
   );
 }
 
@@ -93,12 +145,14 @@ function ExperienceSection () {
 function ProjectsSection() {
   return (
       <section className="flex flex-wrap justify-center items-center h-screen" id="projects">
-        <div className="flex flex-col md:flex-row items-center justify-center h-full">
-          {[0,1,2,3,4,5].map((num) =>  <ProjectTile 
-            title="title"
-            description="hello"
-            date="date"
-          />)}
+        <div className="grid md:grid-cols-3 md:grid-rows-2 grid-cols-2 grid-rows-3 items-center justify-center h-full">
+          {projectsList.map(({title, description, tags}) =>  
+            <ProjectTile 
+            title={title}
+            description={description}
+            tags={tags}
+            />
+          )}
         </div>
       </section>
   )
@@ -113,21 +167,6 @@ export default function Home() {
         <meta name="description" content="asldkjfklsajdfkl" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-d9f4c7 to-f8fa90">
-        <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
-          <h1 className="text-6xl font-bold text-ac9969 mb-8">
-            Matthew
-          </h1>
-          <p className="text-2xl font-medium text-gray-800 mb-8">
-            Software Developer, Student, Frog-Lover
-          </p>
-          <Link to="experience" smooth={true} duration={1000}>
-            <button className="bg-tea-green font-bold py-4 px-6 rounded-lg shadow-sm hover:shadow-md">
-              <HiOutlineArrowDown />
-            </button>
-          </Link>
-        </main>
-      </div> */}
       <LandingSection />
       <ProjectsSection />
       <ExperienceSection />
