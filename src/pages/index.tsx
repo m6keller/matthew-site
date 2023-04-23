@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { Link } from 'react-scroll';
 import { HiOutlineArrowDown } from 'react-icons/hi'
+import { BsGithub } from "react-icons/bs"
 import ReactModal from 'react-modal';
 import { useState } from 'react';
 
@@ -8,17 +9,20 @@ const experienceList = [
   {
     title: "Biomedical Engineering Student",
     company: "University of Waterloo",
-    description: 'bme blah blah blah',
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vehicula orci eget velit condimentum fermentum.",
+    completion: 0.25,
   },
   {
     title: "Backend Developer",
     company: "Reya Health",
-    description: 'Backend blah blah blah',
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vehicula orci eget velit condimentum fermentum.",
+    completion: 1,
   },
   {
     title: "Full Stack Developer",
     company: "Scispot Inc.",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vehicula orci eget velit condimentum fermentum.",
+    completion: 1,
   }
 ]
 
@@ -55,36 +59,73 @@ const projectsList = [
   },
 ]
 
-function ExperienceTile({ title, description, company } : {title: string, description: string, company: string}) {
+function ExperienceTile({ title, description, company, completion } : {title: string, description: string, company: string, completion: number}) {
+  const [open, setOpen] = useState(false);
 
   return (
-    <div className="relative flex items-center justify-center w-full md:w-1/2 py-4 md:py-8 px-4 md:px-8">
+    <button onClick={() => setOpen(true)} className="text-left relative flex items-center justify-center w-full md:w-1/2 py-4 md:py-8 px-4 md:px-8">
       <div className="relative bg-white border border-gray-200 rounded-lg shadow-md p-6">
-        <h3 className="text-lg md:text-xl font-bold mb-2">{title}</h3>
-        <p className="text-gray-600 text-sm md:text-base">{description}</p>
-        <span className="absolute top-0 left-0 -ml-3 h-6 w-6 rounded-full bg-gray-100 border-2 border-gray-400"></span>
+        <h3 className="text-lg md:text-xl font-bold">{title}</h3>
+        <div>@ {company}</div>
+        <p className="mt-2 text-gray-600 text-sm md:text-base">{description}</p>
+        <div className="absolute -top-2 left-0 -ml-3" >
+          <CircleProgressBar progress={1} size={6} fill={completion >= 1}/>
+        </div>
       </div>
-    </div>
+      <InfoPopUp 
+        open={open} 
+        setOpen={setOpen}
+        header={title}
+        subheader={company}
+        mainText={description}
+        />
+    </button>
   )
 
 }
 
-function ProjectPopUp({ open, setOpen}: {open: boolean, setOpen: Function}) {
+interface InfoPopUpProps {
+  open: boolean, 
+  setOpen: Function,
+  header: string,
+  subheader: string,
+  mainText: string,
+  githubLink?: string,
+}
+
+function InfoPopUp({ open, setOpen, header, subheader, mainText, githubLink="https://github.com/m6keller" }: InfoPopUpProps) {
+
   return (
-    <ReactModal isOpen={open} className="">
-    {/* <ReactModal isOpen={open} className="rounded"> */}
-      <button className="close" onClick={() => setOpen(false)}>&times;</button>
-      <div className="flex flex-col">
-        <h1>Project 1</h1>
-        <p>blah blah blah</p>
+    <ReactModal isOpen={open} 
+    >
+      <div>
+        <button onClick={(e) => {
+            e.stopPropagation();
+            setOpen(false)
+          }}
+        >
+          &times;
+        </button>
+        <div className="flex flex-col">
+        <div className="flex flex-row justify-between">
+            <h1 className="font-bold text-4xl">{header}</h1>
+            {githubLink && <div>
+              <a href={githubLink}>
+                <BsGithub size={20}/>
+              </a>
+            </div>}
+          </div>
+          <h2 className="mt-1 font-medium">{subheader}</h2>
+          <p className="mt-2">{mainText}</p>
+        </div>
       </div>
     </ReactModal>
-  )
+  );
 }
 
 
 function ProjectTile({ title, tags, description }: { title: string, tags: string[], description: string }) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   return (
     <button className="max-w-sm rounded overflow-hidden shadow-lg m-4 bg-white text-left" onClick={() => setOpen(true)}>
@@ -95,7 +136,13 @@ function ProjectTile({ title, tags, description }: { title: string, tags: string
       <div className="px-6 pt-4 pb-2">
         <span className="text-gray-600 text-sm">{tags.join(", ")}</span>
       </div>
-      <ProjectPopUp open={open} setOpen={setOpen}/>
+      <InfoPopUp 
+        open={open} 
+        setOpen={setOpen}
+        header={title}
+        subheader={tags.join(", ")}
+        mainText={description}
+      />
     </button>
   );
 }
@@ -110,7 +157,7 @@ function LandingSection() {
       <p className="text-2xl font-medium text-gray-800 mb-8">
         Software Developer, Student, Frog-Lover
       </p>
-      <Link to="experience" smooth={true} duration={1000}>
+      <Link to="projects" smooth={true} duration={1000}>
         <button className="bg-tea-green font-bold py-4 px-6 rounded-lg shadow-sm hover:shadow-md">
           <HiOutlineArrowDown />
         </button>
@@ -127,14 +174,9 @@ function ExperienceSection () {
           <div className="relative h-full">
             <div className="absolute top-0 left-1/2 w-0.5 h-full bg-gray-400"></div>
             <div className="flex flex-col">
-              <div className="flex flex-col md:flex-row items-center justify-center h-full">
+              <div className="flex flex-col items-center justify-center h-full">
                 {experienceList.map((experience) => <ExperienceTile {...experience} />)}
               </div>
-              <Link to="projects" className="mx-auto z-10" smooth={true} duration={1000}>
-                <button className="bg-tea-green font-bold py-4 px-6 rounded-lg shadow-sm hover:shadow-md">
-                  <HiOutlineArrowDown />
-                </button>
-              </Link>
             </div>
           </div>
         </div>
@@ -142,10 +184,45 @@ function ExperienceSection () {
   )
 }
 
+function CircleProgressBar({ progress, size, fill=false} : {progress: number, size: number, fill?: boolean}) {
+  
+  const radius=50;
+  const strokeWidth=10;
+  const circumference = 2 * Math.PI * radius; // The circumference of the circle
+
+  const strokeDasharray = `${circumference} ${circumference}`;
+  const strokeDashoffset = circumference - progress * circumference;
+
+  return (
+    <svg
+      className={`w-${size} h-${size}`}
+      viewBox={`0 0 ${2 * radius} ${2 * radius}`}
+      fill="none"
+    >
+      <circle
+        className={`text-${fill ? "tea-green" : "white"} fill-current`}
+        cx={radius}
+        cy={radius}
+        r={radius - strokeWidth / 2}
+        strokeWidth={strokeWidth}
+      />
+      <circle
+        className="text-tea-green stroke-current"
+        cx={radius}
+        cy={radius}
+        r={radius - strokeWidth / 2}
+        strokeWidth={strokeWidth}
+        strokeDasharray={strokeDasharray}
+        strokeDashoffset={strokeDashoffset}
+      />
+    </svg>
+  );
+};
+
 function ProjectsSection() {
   return (
-      <section className="flex flex-wrap justify-center items-center h-screen" id="projects">
-        <div className="grid md:grid-cols-3 md:grid-rows-2 grid-cols-2 grid-rows-3 items-center justify-center h-full">
+      <section className="flex flex-col flex-wrap justify-center items-center h-screen" id="projects">
+        <div className="grid md:grid-cols-2 md:grid-rows-3 sm:grid-cols-1 sm:grid-rows-6 grid-cols-3 grid-rows-2 items-center justify-center ">
           {projectsList.map(({title, description, tags}) =>  
             <ProjectTile 
             title={title}
@@ -153,7 +230,13 @@ function ProjectsSection() {
             tags={tags}
             />
           )}
+        
         </div>
+        <Link to="experience" smooth={true} duration={1000}>
+          <button className="mt-4 bg-tea-green font-bold py-4 px-6 mx-auto rounded-lg shadow-sm hover:shadow-md">
+            <HiOutlineArrowDown />
+          </button>
+        </Link>
       </section>
   )
 }
@@ -167,9 +250,11 @@ export default function Home() {
         <meta name="description" content="asldkjfklsajdfkl" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <LandingSection />
-      <ProjectsSection />
-      <ExperienceSection />
+      <div className="flex flex-col">
+        <LandingSection />
+        <ProjectsSection />
+        <ExperienceSection />
+      </div>
     </>
   );
 }
