@@ -150,19 +150,19 @@ function ProjectTile({ title, tags, description }: { title: string, tags: string
 function LandingSection() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-d9f4c7 to-f8fa90">
-    <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
-      <h1 className="text-6xl font-bold text-ac9969 mb-8">
-        Matthew
-      </h1>
-      <p className="text-2xl font-medium text-gray-800 mb-8">
-        Software Developer, Student, Frog-Lover
-      </p>
-      <Link to="projects" smooth={true} duration={1000}>
-        <button className="bg-tea-green font-bold py-4 px-6 rounded-lg shadow-sm hover:shadow-md">
-          <HiOutlineArrowDown />
-        </button>
-      </Link>
-    </main>
+      <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
+        <h1 className="text-6xl font-bold text-ac9969 mb-8">
+          Matthew
+        </h1>
+        <p className="text-2xl font-medium text-gray-800 mb-8">
+          Software Developer, Student, Frog-Lover
+        </p>
+        <Link to="projects" smooth={true} duration={1000}>
+          <button className="bg-tea-green font-bold py-4 px-6 rounded-lg shadow-sm hover:shadow-md">
+            <HiOutlineArrowDown />
+          </button>
+        </Link>
+      </main>
   </div>
   )
 }
@@ -170,8 +170,8 @@ function LandingSection() {
 function ExperienceSection () {
   return (
     <section className="h-screen" id="experience">
-        <div className="container mx-auto h-full">
-          <div className="relative h-full">
+        <div className="container mx-auto flex flex-col items-center justify-center">
+          <div className="relative">
             <div className="absolute top-0 left-1/2 w-0.5 h-full bg-gray-400"></div>
             <div className="flex flex-col">
               <div className="flex flex-col items-center justify-center h-full">
@@ -179,6 +179,11 @@ function ExperienceSection () {
               </div>
             </div>
           </div>
+          <Link className="mt-4" to="contact" smooth={true} duration={1000}>
+            <button className="bg-tea-green font-bold py-4 px-6 rounded-lg shadow-sm hover:shadow-md">
+              <HiOutlineArrowDown />
+            </button>
+          </Link>
         </div>
       </section>
   )
@@ -221,8 +226,8 @@ function CircleProgressBar({ progress, size, fill=false} : {progress: number, si
 
 function ProjectsSection() {
   return (
-      <section className="flex flex-col flex-wrap justify-center items-center h-screen" id="projects">
-        <div className="grid md:grid-cols-2 md:grid-rows-3 sm:grid-cols-1 sm:grid-rows-6 grid-cols-3 grid-rows-2 items-center justify-center ">
+      <section className="flex flex-col flex-wrap justify-center items-center lg:h-screen md:h-screen" id="projects">
+        <div className="grid md:grid-cols-2 md:grid-rows-3 sm:grid-cols-1 sm:grid-rows-6 lg:grid-cols-3 lg:grid-rows-2 items-center justify-center ">
           {projectsList.map(({title, description, tags}) =>  
             <ProjectTile 
             title={title}
@@ -232,7 +237,7 @@ function ProjectsSection() {
           )}
         
         </div>
-        <Link to="experience" smooth={true} duration={1000}>
+        <Link className="flex mb-2" to="experience" smooth={true} duration={1000}>
           <button className="mt-4 bg-tea-green font-bold py-4 px-6 mx-auto rounded-lg shadow-sm hover:shadow-md">
             <HiOutlineArrowDown />
           </button>
