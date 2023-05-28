@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import { Link } from 'react-scroll';
-import { HiOutlineArrowDown } from 'react-icons/hi'
-import { BsGithub } from "react-icons/bs"
+import { HiOutlineArrowDown, HiOutlineArrowUp } from 'react-icons/hi'
+import { BsGithub, BsList } from "react-icons/bs"
 import ReactModal from 'react-modal';
-import { useState } from 'react';
+import { useState, useRef, useEffect, Dispatch, SetStateAction } from 'react';
 
 const experienceList = [
   {
@@ -146,23 +146,45 @@ function ProjectTile({ title, tags, description }: { title: string, tags: string
   );
 }
 
+function NavBar() {
+  return (
+    <div className="flex flex-row items-center justify-end bg-tea-green w-full h-12">
+      <p>
+        <Link className=" font-bold text-lg px-4" to="about" smooth={true} duration={1000} >
+          About
+        </Link>
+        <Link className=" font-bold text-lg px-4" to="projects" smooth={true} duration={1000} >
+          Projects
+        </Link>
+        <Link className=" font-bold text-lg px-4" to="experience" smooth={true} duration={1000} >
+          Experience
+        </Link>
+      </p>
+    </div>
+  )
+}
+
 function LandingSection() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-d9f4c7 to-f8fa90">
-      <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
-        <h1 className="text-6xl font-bold text-ac9969 mb-8">
-          Matthew
-        </h1>
-        <p className="text-2xl font-medium text-gray-800 mb-8">
-          Software Developer, Student, Frog-Lover
-        </p>
-        <Link to="projects" smooth={true} duration={1000}>
-          <button className="bg-tea-green font-bold py-4 px-6 rounded-lg shadow-sm hover:shadow-md">
-            <HiOutlineArrowDown />
-          </button>
-        </Link>
+    <section id="home" className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-d9f4c7 to-f8fa90">
+      <NavBar />
+      <main className="flex flex-row items-center justify-center w-full flex-1 px-20 text-center">
+        <div className="flex flex-col items-start w-full">
+          <h1 className="text-6xl font-bold text-ac9969 mb-8">
+            Matthew Keller
+          </h1>
+          <p className="text-2xl font-medium text-gray-800 mb-8">
+            Software Developer, Student, Frog-Lover
+          </p>
+          <Link className="flex" to="projects" smooth={true} duration={1000}>
+            <button className="bg-tea-green font-bold py-4 px-6 rounded-lg shadow-sm hover:shadow-md">
+              <HiOutlineArrowDown />
+            </button>
+          </Link>
+        </div>
+        
       </main>
-  </div>    
+  </section>    
   )
 }
 
@@ -223,7 +245,7 @@ function CircleProgressBar({ progress, size, fill=false} : {progress: number, si
   );
 };
 
-function ProjectsSection() {
+function ProjectsSectionOld() {
   return (
       <section className="flex flex-col flex-wrap justify-center items-center lg:h-screen md:h-screen" id="projects">
         <div className="grid md:grid-cols-2 md:grid-rows-3 sm:grid-cols-1 sm:grid-rows-6 lg:grid-cols-3 lg:grid-rows-2 items-center justify-center ">
@@ -245,6 +267,78 @@ function ProjectsSection() {
   )
 }
 
+function VerticalProjectNavbar({setShowNavbar} : {setShowNavbar: (showNavbar: boolean) => void}) {
+  
+
+  return (
+    <div className="flex flex-col h-full items-end">
+      {projectsList.map(({title, description, tags}) => 
+        <p className="my-3">{title}</p>
+      )}
+    </div>
+  );
+}
+
+interface ProjectTypeButtonProps {text: string, clicked: boolean, setClicked: Dispatch<SetStateAction<boolean>>}
+
+function ProjectTypeButton({ text, clicked, setClicked }: ProjectTypeButtonProps) {
+  return (
+    <button className={`flex bg-${clicked && "tea-green"} font-bold py-1 px-6 rounded-lg hover:shadow-md border-2 border-tea-green`} onClick={() => setClicked((prev) => !prev)}>
+      {text}
+    </button>
+  )
+}
+
+function ProjectsSection() {
+  const [showNavbar, setShowNavbar] = useState(false);
+  const [showAll, setShowAll] = useState(true);
+  const [showWeb, setShowWeb] = useState(false);
+  const [showBackend, setShowBackend] = useState(false);
+  const [showMl, setShowMl] = useState(false);
+  const [showData, setShowData] = useState(false);
+  const [showHardware, setShowHardware] = useState(false);
+
+  const toggleNavbar = () => {
+    setShowNavbar(!showNavbar);
+  };
+
+  return (
+      <section className="flex flex-row flex-wrap justify-center items-center lg:h-screen md:h-screen w-full h-full" id="projects">
+        <div className="flex flex-col w-full">
+          <div className="flex flex-row w-full">
+            <div className="flex w-5/6">
+            </div>
+            <button className={`flex bg-tea-green w-1/6 justify-${showNavbar ? "start" : "end hidden"} `}>
+              <BsList className="text-black" size={30}/>
+            </button>
+          </div>
+          <div className="flex items-center justify-between w-full">
+          <div className={`flex flex-row justify-between px-5 w-${showNavbar ? "5/6" : "full"}`}>
+            <p className="flex text-center text-3xl font-bold items-center justify-start">Projects</p>
+            <div className="flex flex-row mt-2 space-x-4 justify-end">
+              <ProjectTypeButton text="All" clicked={showAll} setClicked={setShowAll} />
+              <ProjectTypeButton text="Web" clicked={showWeb} setClicked={setShowWeb} />
+              <ProjectTypeButton text="Backend" clicked={showBackend} setClicked={setShowBackend} />
+              <ProjectTypeButton text="ML" clicked={showMl} setClicked={setShowMl} />
+              <ProjectTypeButton text="Data" clicked={showData} setClicked={setShowData} />
+              <ProjectTypeButton text="Hardware" clicked={showHardware} setClicked={setShowHardware} />
+            </div>
+          </div>
+          <div className={`flex justify-center h-full w-1/6 ${!showNavbar && "hidden"} bg-tea-green `}>
+            <VerticalProjectNavbar setShowNavbar={setShowNavbar}/>
+          </div>
+        </div>  
+          
+        </div>    
+        <Link className="flex mb-2" to="experience" smooth={true} duration={1000}>
+            <button className="mt-4 bg-tea-green font-bold py-4 px-6 mx-auto rounded-lg shadow-sm hover:shadow-md">
+              <HiOutlineArrowDown />
+            </button>
+        </Link>  
+      </section>
+  )
+}
+
 function ContactBlock({}) {
   return (
     <div className="flex flex-row">
@@ -256,8 +350,13 @@ function ContactBlock({}) {
 function ContactSection() {
   return (
     <section className="flex flex-col items-center justify-center h-screen" id="contact">
-      contact section
+      <p className="text-2xl font-bold">Contact Me</p>
       <div></div>
+      <Link className="flex mb-2" to="home" smooth={true} duration={1000}>
+        <button className="mt-4 bg-tea-green font-bold py-4 px-6 mx-auto rounded-lg shadow-sm hover:shadow-md">
+          <HiOutlineArrowUp />
+        </button>
+      </Link>
     </section>
   )
 }
@@ -271,7 +370,10 @@ export default function Home() {
         <meta name="description" content="asldkjfklsajdfkl" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex flex-col">
+      {/* <div className="fixed top-0 left-0 w-full z-50" >
+        <NavBar />
+      </div> */}
+      <div className="flex flex-col w-full">
         <LandingSection />
         <ProjectsSection />
         <ExperienceSection />
