@@ -1,9 +1,11 @@
 import Head from 'next/head';
 import { Link } from 'react-scroll';
 import { HiOutlineArrowDown, HiOutlineArrowUp } from 'react-icons/hi'
-import { BsGithub, BsList } from "react-icons/bs"
+import { BsGithub, BsLinkedin, BsList } from "react-icons/bs"
+import { AiFillMail, AiOutlineMail } from "react-icons/ai"
 import ReactModal from 'react-modal';
 import { useState, useRef, useEffect, Dispatch, SetStateAction } from 'react';
+import { IconType } from 'react-icons';
 
 const experienceList = [
   {
@@ -158,6 +160,9 @@ function NavBar() {
         </Link>
         <Link className=" font-bold text-lg px-4" to="experience" smooth={true} duration={1000} >
           Experience
+        </Link>
+        <Link className=" font-bold text-lg px-4" to="contact" smooth={true} duration={1000} >
+          Contact
         </Link>
       </p>
     </div>
@@ -328,7 +333,6 @@ function ProjectsSection() {
             <VerticalProjectNavbar setShowNavbar={setShowNavbar}/>
           </div>
         </div>  
-          
         </div>    
         <Link className="flex mb-2" to="experience" smooth={true} duration={1000}>
             <button className="mt-4 bg-tea-green font-bold py-4 px-6 mx-auto rounded-lg shadow-sm hover:shadow-md">
@@ -339,22 +343,33 @@ function ProjectsSection() {
   )
 }
 
-function ContactBlock({}) {
-  return (
-    <div className="flex flex-row">
+interface ContactElementProps {Icon: IconType, text: string}
 
+function ContactElement({Icon, text} : ContactElementProps) {
+  return (
+    <div className="flex flex-row space-x-4 items-center">
+      <Icon size={30}/>
+      <p className="text-center">{text}</p>
     </div>
   )
 }
 
+
 function ContactSection() {
+
   return (
-    <section className="flex flex-col items-center justify-center h-screen" id="contact">
-      <p className="text-2xl font-bold">Contact Me</p>
-      <div></div>
-      <Link className="flex mb-2" to="home" smooth={true} duration={1000}>
+    <section className="flex flex-col items-center justify-center h-screen w-full" id="contact">
+      <div className="flex flex-col justify-around ml-20 w-full">
+        <p className="text-2xl font-bold my-20">Contact Me</p>
+        <div className="flex flex-col space-y-4">
+          <ContactElement Icon={BsGithub} text="/m6keller"/>
+          <ContactElement Icon={BsLinkedin} text="in/m6keller"/>
+          <ContactElement Icon={AiOutlineMail} text="m6keller@uwaterloo.ca"/>
+        </div>
+      </div>
+      <Link className="flex mb-20 mt-auto" to="home" smooth={true} duration={1000}>
         <button className="mt-4 bg-tea-green font-bold py-4 px-6 mx-auto rounded-lg shadow-sm hover:shadow-md">
-          <HiOutlineArrowUp />
+            <HiOutlineArrowUp />
         </button>
       </Link>
     </section>
@@ -370,9 +385,6 @@ export default function Home() {
         <meta name="description" content="asldkjfklsajdfkl" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <div className="fixed top-0 left-0 w-full z-50" >
-        <NavBar />
-      </div> */}
       <div className="flex flex-col w-full">
         <LandingSection />
         <ProjectsSection />
