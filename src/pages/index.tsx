@@ -123,7 +123,6 @@ function InfoPopUp({ open, setOpen, header, subheader, mainText, githubLink="htt
   );
 }
 
-
 function ProjectTile({ title, tags, description }: { title: string, tags: string[], description: string }) {
   const [open, setOpen] = useState(false);
 
@@ -163,13 +162,13 @@ function LandingSection() {
           </button>
         </Link>
       </main>
-  </div>
+  </div>    
   )
 }
 
-function ExperienceSection () {
+function ExperienceSection() {
   return (
-    <section className="h-screen" id="experience">
+    <section className="" id="experience">
         <div className="container mx-auto flex flex-col items-center justify-center">
           <div className="relative">
             <div className="absolute top-0 left-1/2 w-0.5 h-full bg-gray-400"></div>
@@ -246,6 +245,23 @@ function ProjectsSection() {
   )
 }
 
+function ContactBlock({}) {
+  return (
+    <div className="flex flex-row">
+
+    </div>
+  )
+}
+
+function ContactSection() {
+  return (
+    <section className="flex flex-col items-center justify-center h-screen" id="contact">
+      contact section
+      <div></div>
+    </section>
+  )
+}
+
 export default function Home() {
 
   return (
@@ -259,6 +275,7 @@ export default function Home() {
         <LandingSection />
         <ProjectsSection />
         <ExperienceSection />
+        <ContactSection />
       </div>
     </>
   );
