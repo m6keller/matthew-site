@@ -173,21 +173,25 @@ function LandingSection() {
   return (
     <section id="home" className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-d9f4c7 to-f8fa90">
       <NavBar />
-      <main className="flex flex-row items-center justify-center w-full flex-1 px-20 text-center">
-        <div className="flex flex-col items-start w-full">
-          <h1 className="text-6xl font-bold text-ac9969 mb-8">
-            Matthew Keller
-          </h1>
-          <p className="text-2xl font-medium text-gray-800 mb-8">
-            Software Developer, Student, Frog-Lover
-          </p>
-          <Link className="flex" to="projects" smooth={true} duration={1000}>
-            <button className="bg-tea-green font-bold py-4 px-6 rounded-lg shadow-sm hover:shadow-md">
-              <HiOutlineArrowDown />
-            </button>
-          </Link>
+      <main className="flex flex-row items-center justify-between w-full flex-1 px-20 text-center">
+        <div className="flex flex-col text-start">
+          <div className="flex flex-col items-start w-full">
+            <h1 className="text-6xl font-bold text-ac9969 mb-8">
+              Matthew Keller
+            </h1>
+            <p className="text-2xl font-medium text-gray-800 mb-8">
+              Software Developer, Student, Frog-Lover
+            </p>
+            <Link className="flex" to="about" smooth={true} duration={1000}>
+              <button className="bg-tea-green font-bold py-4 px-6 rqounded-lg shadow-sm hover:shadow-md">
+                <HiOutlineArrowDown />
+              </button>
+            </Link>
+          </div>
         </div>
-        
+        <div className="w-1/2 flex flex-row items-center justify-center">
+          // put 3d image here
+        </div>
       </main>
   </section>    
   )
@@ -195,7 +199,7 @@ function LandingSection() {
 
 function ExperienceSection() {
   return (
-    <section className="" id="experience">
+    <section className="flex flex-col flex-wrap justify-center items-center lg:h-screen md:h-screen" id="experience">
         <div className="container mx-auto flex flex-col items-center justify-center">
           <div className="relative">
             <div className="absolute top-0 left-1/2 w-0.5 h-full bg-gray-400"></div>
@@ -308,15 +312,15 @@ function ProjectsSection() {
   };
 
   return (
-      <section className="flex flex-row flex-wrap justify-center items-center lg:h-screen md:h-screen w-full h-full" id="projects">
-        <div className="flex flex-col w-full">
-          <div className="flex flex-row w-full">
+      <section className="flex flex-col flex-wrap justify-center items-center lg:h-screen md:h-screen" id="projects">
+        <div className="flex flex-col w-full mt-5">
+          {/* <div className="flex flex-row w-full">
             <div className="flex w-5/6">
             </div>
             <button className={`flex bg-tea-green w-1/6 justify-${showNavbar ? "start" : "end hidden"} `}>
               <BsList className="text-black" size={30}/>
             </button>
-          </div>
+          </div> */}
           <div className="flex items-center justify-between w-full">
           <div className={`flex flex-row justify-between px-5 w-${showNavbar ? "5/6" : "full"}`}>
             <p className="flex text-center text-3xl font-bold items-center justify-start">Projects</p>
@@ -334,7 +338,7 @@ function ProjectsSection() {
           </div>
         </div>  
         </div>    
-        <Link className="flex mb-2" to="experience" smooth={true} duration={1000}>
+        <Link className="flex mb-20 mt-auto" to="experience" smooth={true} duration={1000}>
             <button className="mt-4 bg-tea-green font-bold py-4 px-6 mx-auto rounded-lg shadow-sm hover:shadow-md">
               <HiOutlineArrowDown />
             </button>
@@ -359,17 +363,64 @@ function ContactSection() {
 
   return (
     <section className="flex flex-col items-center justify-center h-screen w-full" id="contact">
-      <div className="flex flex-col justify-around ml-20 w-full">
-        <p className="text-2xl font-bold my-20">Contact Me</p>
-        <div className="flex flex-col space-y-4">
-          <ContactElement Icon={BsGithub} text="/m6keller"/>
-          <ContactElement Icon={BsLinkedin} text="in/m6keller"/>
-          <ContactElement Icon={AiOutlineMail} text="m6keller@uwaterloo.ca"/>
+      <div className="flex grow flex-row justify-between w-full">
+        <div className="flex flex-col justify-around ml-20 w-full">
+          <p className="text-2xl font-bold mt-20">Contact Me</p>
+          <div className="flex flex-col space-y-4">
+            <ContactElement Icon={BsGithub} text="/m6keller"/>
+            <ContactElement Icon={BsLinkedin} text="in/m6keller"/>
+            <ContactElement Icon={AiOutlineMail} text="m6keller@uwaterloo.ca"/>
+          </div>
+        </div>
+        <div className="flex grow w-full items-center text-center">
+          // put ryan art here or maybe put it for full page then links at bottom
         </div>
       </div>
       <Link className="flex mb-20 mt-auto" to="home" smooth={true} duration={1000}>
         <button className="mt-4 bg-tea-green font-bold py-4 px-6 mx-auto rounded-lg shadow-sm hover:shadow-md">
             <HiOutlineArrowUp />
+        </button>
+      </Link>
+    </section>
+  )
+}
+
+function AboutSection() {
+  return (
+    <section className="flex flex-col items-center justify-center h-screen w-full" id="about">
+      <div className="flex flex-row grow justify-between w-full">
+      <div className="flex flex-col w-1/2">
+        <p className="flex flex-grow text-center text-3xl font-bold items-center justify-start mt-5 ml-5">About Me</p>
+        <div className="bg-tea-green grow rounded-lg h-full w-full m-4">
+          <div className="flex flex-col m-2 text-lg space-y-2">
+          <div>
+            <p className="font-bold"> Interests</p>
+            I love to rock climb (top rope &gt; bouldering) and wrestle, and I'm starting to learn Spanish. 
+          </div>
+          <div>
+            <p className="font-bold"> Current Work</p>
+            I'm currently studying Biomedical Engineering at the University of Waterloo and working as a research assistant 
+            at the University's Vision and Image Processing Lab where I am exploring nutritional analysis using computer vision 
+            and machine learning techniques.
+          </div>
+          <div>
+            <p className="font-bold">Work Goals</p>
+            I aim to work in fast-paced environments at tech, medical, or bio companies that value independence.
+            I have a strong interest in machine learning, computer vision, and 3D graphics and have a solid foundation in software development, 
+            especially working on web application backends and integrating other platforms and APIs within a product.
+
+            I am open to working in 4- and 8-month co-op positions for Winter 2024 
+          </div>
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-row content-center justify-center items-center w-1/2">
+        // put portrait image here
+      </div>
+      </div>
+      <Link className="flex mb-20 mt-auto" to="projects" smooth={true} duration={1000}>
+        <button className="mt-4 bg-tea-green font-bold py-4 px-6 mx-auto rounded-lg shadow-sm hover:shadow-md">
+            <HiOutlineArrowDown />
         </button>
       </Link>
     </section>
@@ -387,6 +438,7 @@ export default function Home() {
       </Head>
       <div className="flex flex-col w-full">
         <LandingSection />
+        <AboutSection />
         <ProjectsSection />
         <ExperienceSection />
         <ContactSection />
