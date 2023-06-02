@@ -11,19 +11,19 @@ const experienceList = [
   {
     title: "Biomedical Engineering Student",
     company: "University of Waterloo",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vehicula orci eget velit condimentum fermentum.",
+    description: "",
     completion: 0.25,
   },
   {
     title: "Backend Developer",
     company: "Reya Health",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vehicula orci eget velit condimentum fermentum.",
+    description: "",
     completion: 1,
   },
   {
     title: "Full Stack Developer",
     company: "Scispot Inc.",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vehicula orci eget velit condimentum fermentum.",
+    description: "",
     completion: 1,
   }
 ]
@@ -150,18 +150,18 @@ function ProjectTile({ title, tags, description }: { title: string, tags: string
 
 function NavBar() {
   return (
-    <div className="flex flex-row items-center justify-end bg-tea-green w-full h-12">
+    <div className="flex flex-row items-center justify-end w-full h-12">
       <p>
-        <Link className=" font-bold text-lg px-4" to="about" smooth={true} duration={1000} >
+        <Link className=" font-bold text-lg mx-4 p-1 rounded-md bg-white" to="about" smooth={true} duration={1000} >
           About
         </Link>
-        <Link className=" font-bold text-lg px-4" to="projects" smooth={true} duration={1000} >
+        <Link className=" font-bold text-lg mx-4 p-1 rounded-md bg-white" to="projects" smooth={true} duration={1000} >
           Projects
         </Link>
-        <Link className=" font-bold text-lg px-4" to="experience" smooth={true} duration={1000} >
+        <Link className=" font-bold text-lg mx-4 p-1 rounded-md bg-white" to="experience" smooth={true} duration={1000} >
           Experience
         </Link>
-        <Link className=" font-bold text-lg px-4" to="contact" smooth={true} duration={1000} >
+        <Link className=" font-bold text-lg mx-4 p-1 rounded-md bg-white" to="contact" smooth={true} duration={1000} >
           Contact
         </Link>
       </p>
@@ -171,7 +171,10 @@ function NavBar() {
 
 function LandingSection() {
   return (
-    <section id="home" className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-d9f4c7 to-f8fa90">
+    <section 
+      style={{ backgroundImage: `url("./mkplant.png")`}} 
+      id="home" 
+      className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-d9f4c7 to-f8fa90">
       <NavBar />
       <main className="flex flex-row items-center justify-between w-full flex-1 px-20 text-center">
         <div className="flex flex-col text-start">
@@ -180,7 +183,7 @@ function LandingSection() {
               Matthew Keller
             </h1>
             <p className="text-2xl font-medium text-gray-800 mb-8">
-              Software Developer, Student, Frog-Lover
+              Software Developer, Student
             </p>
             <Link className="flex" to="about" smooth={true} duration={1000}>
               <button className="bg-tea-green font-bold py-4 px-6 rqounded-lg shadow-sm hover:shadow-md">
@@ -201,13 +204,18 @@ function ExperienceSection() {
   return (
     <section className="flex flex-col flex-wrap justify-center items-center lg:h-screen md:h-screen" id="experience">
         <div className="container mx-auto flex flex-col items-center justify-center">
-          <div className="relative">
-            <div className="absolute top-0 left-1/2 w-0.5 h-full bg-gray-400"></div>
-            <div className="flex flex-col">
-              <div className="flex flex-col items-center justify-center h-full">
-                {experienceList.map((experience) => <ExperienceTile {...experience} />)}
+          <div className="flex flex-row w-full">
+            <div className="flex flex-col w-full">put stuf here</div>
+            {/* <div className="flex "> */}
+            <div className="relative w-full">
+                <div className="absolute top-0 left-1/2 w-0.5 h-full bg-gray-400"></div>
+                <div className="flex flex-col w-full">
+                  <div className="flex flex-col items-center justify-center h-full w-full">
+                    {experienceList.map((experience) => <ExperienceTile {...experience} />)}
+                  </div>
+                {/* </div> */}
+                </div>
               </div>
-            </div>
           </div>
           <Link className="mt-4" to="contact" smooth={true} duration={1000}>
             <button className="bg-tea-green font-bold py-4 px-6 rounded-lg shadow-sm hover:shadow-md">
@@ -278,7 +286,6 @@ function ProjectsSectionOld() {
 
 function VerticalProjectNavbar({setShowNavbar} : {setShowNavbar: (showNavbar: boolean) => void}) {
   
-
   return (
     <div className="flex flex-col h-full items-end">
       {projectsList.map(({title, description, tags}) => 
@@ -395,21 +402,13 @@ function AboutSection() {
           <div className="flex flex-col m-2 text-lg space-y-2">
           <div>
             <p className="font-bold"> Interests</p>
-            I love to rock climb (top rope &gt; bouldering) and wrestle, and I'm starting to learn Spanish. 
+
           </div>
           <div>
             <p className="font-bold"> Current Work</p>
-            I'm currently studying Biomedical Engineering at the University of Waterloo and working as a research assistant 
-            at the University's Vision and Image Processing Lab where I am exploring nutritional analysis using computer vision 
-            and machine learning techniques.
           </div>
           <div>
             <p className="font-bold">Work Goals</p>
-            I aim to work in fast-paced environments at tech, medical, or bio companies that value independence.
-            I have a strong interest in machine learning, computer vision, and 3D graphics and have a solid foundation in software development, 
-            especially working on web application backends and integrating other platforms and APIs within a product.
-
-            I am open to working in 4- and 8-month co-op positions for Winter 2024 
           </div>
           </div>
         </div>
